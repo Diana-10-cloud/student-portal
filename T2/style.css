@@ -1,0 +1,612 @@
+/* ==========================================================================
+   1. GLOBAL VARIABLES & RESET
+   ========================================================================== */
+:root {
+    --bg-primary: #0f0d1d;
+    --bg-secondary: #1a162b;
+    --bg-card: rgba(30, 27, 51, 0.7);
+    --accent-purple: #8b5cf6;
+    --accent-purple-light: #a78bfa;
+    --accent-glow: rgba(139, 92, 246, 0.4);
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --border-color: rgba(139, 92, 246, 0.25);
+    --radius-lg: 16px;
+    --radius-md: 10px;
+    --font-main: 'Plus Jakarta Sans', sans-serif;
+    --font-code: 'Fira Code', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+    padding-bottom: 40px;
+}
+
+/* Background Ambient Orbs */
+.glow-orb {
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.orb-1 {
+    top: -50px;
+    left: -50px;
+    background: rgba(139, 92, 246, 0.25);
+}
+
+.orb-2 {
+    bottom: 10%;
+    right: -50px;
+    background: rgba(167, 139, 250, 0.2);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ==========================================================================
+   2. HERO & HEADER SECTION
+   ========================================================================== */
+#hero {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 0 40px 0;
+    gap: 30px;
+}
+
+.hero-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+.badge {
+    display: inline-block;
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid var(--accent-purple);
+    color: var(--accent-purple-light);
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.role-subtitle {
+    font-size: 1.2rem;
+    color: var(--accent-purple-light);
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.tagline {
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 25px;
+    max-width: 550px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--accent-purple);
+    color: #fff;
+    box-shadow: 0 4px 15px var(--accent-glow);
+}
+
+.btn-primary:hover {
+    background: #7c3aed;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   3. PERFECT CIRCLE PROFILE PICTURE & HOVER EFFECT
+   ========================================================================== */
+.hero-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-avatar .img-wrapper {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%; /* Perfect Circle */
+    overflow: hidden;   /* Clips image edges to force circle boundary */
+    border: 4px solid var(--accent-purple);
+    box-shadow: 0 0 25px var(--accent-glow);
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
+    background-color: var(--bg-secondary);
+}
+
+.hero-avatar .img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Prevents stretching and maintains ratio */
+    object-position: center top; /* Keeps focus centered on face */
+    display: block;
+    transition: transform 0.4s ease-in-out;
+}
+
+/* Hover State Animations */
+.hero-avatar .img-wrapper:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent-purple-light);
+    box-shadow: 0 0 35px rgba(139, 92, 246, 0.8), 
+                0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.hero-avatar .img-wrapper:hover img {
+    transform: scale(1.08); /* Smooth Zoom-In */
+}
+
+/* ==========================================================================
+   4. NAVIGATION BAR
+   ========================================================================== */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    padding: 12px 18px;
+    border-radius: var(--radius-lg);
+    margin: 20px 0 40px 0;
+}
+
+nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+nav a:hover {
+    color: #fff;
+    background: rgba(139, 92, 246, 0.2);
+}
+
+nav a.nav-highlight {
+    background: var(--accent-purple);
+    color: #fff;
+    margin-left: auto;
+}
+
+nav a.nav-highlight:hover {
+    background: #7c3aed;
+}
+
+/* ==========================================================================
+   5. GENERAL SECTIONS & CARDS
+   ========================================================================== */
+section {
+    margin-bottom: 50px;
+}
+
+.section-header {
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 1.6rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-header .section-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 2px;
+}
+
+.bio-card, .pro-form, .table-responsive {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    backdrop-filter: blur(8px);
+}
+
+.bio-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.detail-pill {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.9rem;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 18px 0;
+}
+
+.bio-text {
+    color: var(--text-primary);
+    font-size: 0.98rem;
+    line-height: 1.7;
+}
+
+mark {
+    background: rgba(139, 92, 246, 0.3);
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.tech-tag-line {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   6. SKILLS GRID & HOBBIES LIST
+   ========================================================================== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    list-style: none;
+}
+
+.skills-grid li {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+}
+
+.skills-grid li:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-purple-light);
+}
+
+.skills-grid li i {
+    color: var(--accent-purple-light);
+    font-size: 1.2rem;
+}
+
+.hobbies-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.hobbies-list li {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.step-num {
+    font-family: var(--font-code);
+    font-weight: 700;
+    color: var(--accent-purple-light);
+    background: rgba(139, 92, 246, 0.15);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   7. TABLE STYLES
+   ========================================================================== */
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    color: var(--accent-purple-light);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+code {
+    font-family: var(--font-code);
+    background: rgba(255, 255, 255, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #38bdf8;
+}
+
+.badge-status {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Links Group */
+.link-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-link {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-link:hover {
+    border-color: var(--accent-purple);
+    background: rgba(139, 92, 246, 0.15);
+}
+
+.btn-link-alt {
+    border-style: dashed;
+}
+
+/* ==========================================================================
+   8. MEDIA SHOWCASE GRID
+   ========================================================================== */
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.media-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.media-card h3 {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+}
+
+.media-card iframe, 
+.media-card video, 
+.media-card audio {
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+}
+
+/* ==========================================================================
+   9. FORM STYLING
+   ========================================================================== */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+input, select, textarea {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--accent-purple);
+}
+
+.radio-checkbox-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding-top: 5px;
+}
+
+.radio-checkbox-group label {
+    color: var(--text-primary);
+    font-weight: normal;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.form-actions {
+    grid-column: span 2;
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.btn-submit {
+    background: var(--accent-purple);
+    color: #fff;
+}
+
+.btn-reset {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.btn-reset:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+/* ==========================================================================
+   10. FOOTER
+   ========================================================================== */
+footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 25px;
+    margin-top: 40px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+footer a {
+    color: var(--accent-purple-light);
+    text-decoration: none;
+}
+
+.copyright {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* ==========================================================================
+   11. RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+@media (max-width: 768px) {
+    #hero {
+        text-align: center;
+        justify-content: center;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full-width, .form-actions {
+        grid-column: span 1;
+    }
+
+    nav a.nav-highlight {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+    }
+}
